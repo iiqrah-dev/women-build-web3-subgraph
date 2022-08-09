@@ -8,8 +8,6 @@ import {
 import { Event, Account, Registrant, Attendee } from "../generated/schema";
 import { integer } from "@protofire/subgraph-toolkit";
 
-export function handleNewAttendeeCheckIn(event: NewAttendeeCheckIn): void {}
-
 export function handleNewEventCreated(event: NewEventCreated): void {
   let newEvent = Event.load(event.params.eID.toHex());
   if (newEvent == null) {
@@ -87,6 +85,25 @@ export function handleNewRegistrantAdded(event: NewRegistrantAdded): void {
 
     account.totalEventsRegistered = integer.increment(
       account.totalEventsRegistered
+    );
+    account.save();
+  }
+}
+
+export function handleNewAttendeeCheckIn(event: NewAttendeeCheckIn): void {
+  let newAttendee = Attendee.load(event.transaction.from.toHex());
+  let account = getOrCreateAccount(event.params.attendeeAddress);
+  let thisEvent = Event.load(event.params.eID.toHex());
+
+  if (newAttendee == null && thisEvent != null) {
+    newAttendee = new Attendee(event.transaction.from.toHex());
+    newAttendee.attendee = account.id;
+    newAttendee.event = thisEvent.id;
+
+    newAttendee.save();
+
+    account.totalEventsAttended = integer.increment(
+      account.totalEventsAttended
     );
     account.save();
   }
