@@ -1,0 +1,236 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "eID",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "attendeeAddress",
+        "type": "address"
+      }
+    ],
+    "name": "NewAttendeeCheckIn",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "eID",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "eDataCID",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "eCreator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eTimeStart",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eCapacity",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eDepositAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "NewEventCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "eID",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "registrantAddress",
+        "type": "address"
+      }
+    ],
+    "name": "NewRegistrantAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "eID",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "unclaimedDepositAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "UnclaimedDepositPaidOut",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "eID",
+        "type": "bytes32"
+      }
+    ],
+    "name": "addNewRegistrant",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "eID",
+        "type": "bytes32"
+      }
+    ],
+    "name": "checkInAllRegistrants",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "eID",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "registrant",
+        "type": "address"
+      }
+    ],
+    "name": "checkInRegistrant",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "eDataCID",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eTimeStart",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eCapacity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eDepositAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "createEvent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "idToEventMapping",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "eID",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "string",
+        "name": "eDataCID",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "eCreator",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eTimeStart",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eCapacity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eDepositAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isPaid",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "eID",
+        "type": "bytes32"
+      }
+    ],
+    "name": "withdrawUnclaimedDeposit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

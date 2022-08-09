@@ -1,0 +1,35 @@
+specVersion: 0.0.4
+schema:
+  file: schema.graphql
+features:
+  - ipfsOnEthereumContracts
+dataSources:
+  - kind: ethereum
+    name: Web3RSVP
+    network: mumbai
+    source:
+      address: "0xCA211CbE2dAc657D208a1BF9200C5a4E25C719f7"
+      abi: Web3RSVP
+      startBlock: 27490752
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Event
+        - Account
+        - Registrant
+        - Attendee
+      abis:
+        - name: Web3RSVP
+          file: Web3RSVP/abis/Web3RSVP.json
+      eventHandlers:
+        - event: NewAttendeeCheckIn(bytes32,address)
+          handler: handleNewAttendeeCheckIn
+        - event: NewEventCreated(bytes32,string,address,uint256,uint256,uint256)
+          handler: handleNewEventCreated
+        - event: NewRegistrantAdded(bytes32,address)
+          handler: handleNewRegistrantAdded
+        - event: UnclaimedDepositPaidOut(bytes32,uint256)
+          handler: handleUnclaimedDepositPaidOut
+      file: Web3RSVP/Web3RSVP.wasm
