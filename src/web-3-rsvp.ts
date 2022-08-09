@@ -24,6 +24,41 @@ export function handleNewEventCreated(event: NewEventCreated): void {
     newEvent.totalRegistrants = integer.ZERO;
     newEvent.totalAttendees = integer.ZERO;
 
+    let metadata = ipfs.cat(event.params.eDataCID + "/data.json");
+
+    if (metadata) {
+      const content = json.fromBytes(metadata).toObject();
+
+      if (content) {
+        const name = content.get("name");
+        const description = content.get("description");
+        const link = content.get("link");
+        const image = content.get("image");
+
+        if (name) {
+          newEvent.eName = name.toString();
+        }
+
+        if (description) {
+          newEvent.eDescription = description.toString();
+        }
+
+        if (link) {
+          newEvent.eLink = link.toString();
+        }
+
+        if (image) {
+          const imageURL =
+            "https://ipfs.io/ipfs/" + event.params.eDataCID + image.toString();
+          newEvent.eImage = imageURL;
+        } else {
+          const fallbackImageURL =
+            "https://ipfs.io/ipfs/bafybeibssbrlptcefbqfh4vpw2wlmqfj2kgxt3nil4yujxbmdznau3t5wi/event.png";
+          newEvent.eImage = fallbackImageURL;
+        }
+      }
+    }
+
     newEvent.save();
   }
 }
