@@ -87,6 +87,9 @@ export function handleNewRegistrantAdded(event: NewRegistrantAdded): void {
       account.totalEventsRegistered
     );
     account.save();
+
+    thisEvent.totalRegistrants = integer.increment(thisEvent.totalRegistrants);
+    thisEvent.save();
   }
 }
 
@@ -106,6 +109,9 @@ export function handleNewAttendeeCheckIn(event: NewAttendeeCheckIn): void {
       account.totalEventsAttended
     );
     account.save();
+
+    thisEvent.totalAttendees = integer.increment(thisEvent.totalAttendees);
+    thisEvent.save();
   }
 }
 
