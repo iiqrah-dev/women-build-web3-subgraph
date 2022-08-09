@@ -22,8 +22,12 @@ type Account @entity {
 
 type Registrant @entity {
   id: ID!
+  registrant: Account!
+  event: Event!
 }
 
 type Attendee @entity {
   id: ID!
+  attendee: Account!
+  event: Event!
 }
