@@ -1,5 +1,19 @@
 type Event @entity {
   id: ID!
+  eID: Bytes!
+  eName: String
+  eDescription: String
+  eLink: String
+  eImage: String
+  eCreator: Bytes!
+  eTimeStart: BigInt!
+  eCapacity: BigInt!
+  eDepositAmount: BigInt!
+  eRegistrants: [Registrant!] @derivedFrom(field: "event")
+  totalRegistrants: BigInt!
+  eAttendees: [Attendee!] @derivedFrom(field: "event")
+  totalAttendees: BigInt!
+  isPaid: Boolean!
 }
 
 type Account @entity {
