@@ -18,6 +18,10 @@ type Event @entity {
 
 type Account @entity {
   id: ID!
+  totalEventsRegistered: BigInt!
+  totalEventsAttended: BigInt!
+  registeredEvents: [Registrant!] @derivedFrom(field: "registrant")
+  attendedEvents: [Attendee!] @derivedFrom(field: "attendee")
 }
 
 type Registrant @entity {
