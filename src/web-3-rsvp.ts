@@ -10,7 +10,23 @@ import { integer } from "@protofire/subgraph-toolkit";
 
 export function handleNewAttendeeCheckIn(event: NewAttendeeCheckIn): void {}
 
-export function handleNewEventCreated(event: NewEventCreated): void {}
+export function handleNewEventCreated(event: NewEventCreated): void {
+  let newEvent = Event.load(event.params.eID.toHex());
+  if (newEvent == null) {
+    newEvent = new Event(event.params.eID.toHex());
+    newEvent.eID = event.params.eID;
+    newEvent.eCreator = event.params.eCreator;
+    newEvent.eTimeStart = event.params.eTimeStart;
+    newEvent.eCapacity = event.params.eCapacity;
+    newEvent.eDepositAmount = event.params.eDepositAmount;
+    newEvent.isPaid = false;
+
+    newEvent.totalRegistrants = integer.ZERO;
+    newEvent.totalAttendees = integer.ZERO;
+
+    newEvent.save();
+  }
+}
 
 export function handleNewRegistrantAdded(event: NewRegistrantAdded): void {}
 
