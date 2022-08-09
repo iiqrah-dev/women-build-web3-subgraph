@@ -1,7 +1,8 @@
 specVersion: 0.0.4
 schema:
   file: ./schema.graphql
-feature: -ipfsOnEthereumContracts
+features:
+  - ipfsOnEthereumContracts
 dataSources:
   - kind: ethereum
     name: Web3RSVP
