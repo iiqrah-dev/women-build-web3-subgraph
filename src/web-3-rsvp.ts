@@ -117,4 +117,10 @@ export function handleNewAttendeeCheckIn(event: NewAttendeeCheckIn): void {
 
 export function handleUnclaimedDepositPaidOut(
   event: UnclaimedDepositPaidOut
-): void {}
+): void {
+  let thisEvent = Event.load(event.params.eID.toHex());
+  if (thisEvent) {
+    thisEvent.isPaid = true;
+    thisEvent.save();
+  }
+}
