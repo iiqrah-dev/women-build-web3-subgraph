@@ -63,22 +63,33 @@ export function handleNewEventCreated(event: NewEventCreated): void {
   }
 }
 
-function getOrCreateAccount(address: Address) : Account{
+function getOrCreateAccount(address: Address): Account {
   let account = Account.load(address.toHex());
-  if (account == null){
+  if (account == null) {
     account = new Account(address.toHex());
     account.totalEventsRegistered = integer.ZERO;
     account.totalEventsAttended = integer.ZERO;
-    account.save
+    account.save();
   }
   return account;
 }
 
 export function handleNewRegistrantAdded(event: NewRegistrantAdded): void {
-
   let newRegistrant = Registrant.load(event.transaction.from.toHex());
-  if (newRegistrant == null) {
+  let account = getOrCreateAccount(event.params.registrantAddress);
+  let thisEvent = Event.load(event.params.eID.toHex());
+  if (newRegistrant == null && thisEvent != null) {
     newRegistrant = new Registrant(event.transaction.from.toHex());
+    newRegistrant.registrant = account.id;
+    newRegistrant.event = thisEvent.id;
+
+    newRegistrant.save();
+
+    account.totalEventsRegistered = integer.increment(
+      account.totalEventsRegistered
+    );
+    account.save();
+  }
 }
 
 export function handleUnclaimedDepositPaidOut(
